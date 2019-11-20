@@ -1,6 +1,8 @@
 
 /*
   Mock file to test the database
+  run with:
+  >node mongo.js
 */
 
 require('dotenv').config()
