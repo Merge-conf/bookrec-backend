@@ -3,6 +3,8 @@ var app = exp()
 
 require('dotenv').config()
 
+const Book = require('./models/book')
+
 const PORT = process.env.PORT || 3000
 
 app.get('/', (reg, res) => {
