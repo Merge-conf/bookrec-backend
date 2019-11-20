@@ -1,6 +1,7 @@
 var exp = require('express')
 var app = exp()
 
+require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
 
