@@ -16,6 +16,8 @@ module.exports = {
   },
   rules: {
     semi: [2, "never"],
-    indent: ["error", 4]
+    indent: ["error", 2],
+    'no-underscore-dangle': ["error", { "allow": ["_id", "__v"] }],
+    'no-param-reassign': 0
   },
 };
