@@ -1,17 +1,10 @@
-const exp = require('express')
+const http = require('http')
+const app = require('./app')
+const config = require('./utils/config')
 const logger = require('./utils/logger')
 
-const app = exp()
+const server = http.createServer(app)
 
-require('dotenv').config()
-
-const PORT = process.env.PORT || 3000
-
-app.get('/', (reg, res) => {
-  logger.info('Book review')
-  res.send('<h1>Hello book review</h1>')
-})
-
-app.listen(PORT, () => {
-  logger.info(`Àpp running in port ${PORT}`)
+server.listen(config.PORT, () => {
+  logger.info(`Àpp running in port ${config.PORT}`)
 })
