@@ -8,6 +8,8 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:12.13
+        environment:
+          TEST_DB_URI: ${TEST_DB_URI}
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
