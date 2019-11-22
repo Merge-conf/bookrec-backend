@@ -8,9 +8,6 @@ const middleware = require('./utils/middleware')
 const bookRouter = require('./controllers/books')
 
 mongoose.set('useFindAndModify', false)
-console.log(process.env.TEST_DB_URI)
-console.log(config.DB_URI)
-console.log(process.env.NODE_ENV)
 
 const app = exp()
 logger.info('connecting to', config.DB_URI)

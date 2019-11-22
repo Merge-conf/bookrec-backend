@@ -9,7 +9,7 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:12.13
         environment: 
-          TEST_DB_URI: "hello world"
+          TEST_DB_URI: $TEST_DB_URI
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -35,6 +35,5 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: echo $TEST
       # run tests!
       - run: yarn test
