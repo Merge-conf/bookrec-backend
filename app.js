@@ -29,7 +29,7 @@ app.use(middleware.requestLogger)
 
 app.use('/api/books', bookRouter)
 
-app.get('/', (reg, res) => {
+app.get('/', (req, res) => {
   logger.info('Book review')
   res.send('<h1>Hello book review</h1>')
 })
