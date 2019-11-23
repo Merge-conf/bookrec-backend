@@ -10,4 +10,20 @@ bookRouter.get('/', async (req, res, next) => {
   }
 })
 
+bookRouter.post('/api/books', async (req, res, next) => {
+  const { body } = req
+
+  const book = new Book({
+    name: body.name,
+    author: body.author,
+  })
+
+  try {
+    const savedBook = await book.save()
+    res.json(savedBook.toJSON())
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 module.exports = bookRouter
