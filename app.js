@@ -29,6 +29,11 @@ app.use(middleware.requestLogger)
 
 app.use('/api/books', bookRouter)
 
+if (process.env.NODE_ENV === 'test'){
+  const testingRouter = require('./controllers/testRouter')
+  app.use('/api/testing', testingRouter)
+}
+
 app.get('/', (req, res) => {
   logger.info('Book review')
   res.send('<h1>Hello book review</h1>')
