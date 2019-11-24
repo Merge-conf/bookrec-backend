@@ -10,7 +10,7 @@ bookRouter.get('/', async (req, res, next) => {
   }
 })
 
-bookRouter.post('/api/books', async (req, res, next) => {
+bookRouter.post('/', async (req, res, next) => {
   const { body } = req
 
   const book = new Book({
