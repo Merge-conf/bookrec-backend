@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const audioSchema = new mongoose.Schema({
   name: String,
   author: String,
-  url: String
+  url: String,
 })
 
 audioSchema.set('toJSON', {
