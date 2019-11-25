@@ -6,6 +6,7 @@ const logger = require('./utils/logger')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 const bookRouter = require('./controllers/books')
+const audioRouter = require('./controllers/audios')
 
 mongoose.set('useFindAndModify', false)
 
@@ -28,8 +29,9 @@ app.use(bodyParser.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/books', bookRouter)
+app.use('api/audios', audioRouter)
 
-if (process.env.NODE_ENV === 'test'){
+if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testRouter')
   app.use('/api/testing', testingRouter)
 }
