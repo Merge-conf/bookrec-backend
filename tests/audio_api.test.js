@@ -10,13 +10,13 @@ beforeEach(async () => {
 
   const firstAudio = new Audio({
     name: 'Song for testing',
-    author: 'Authorized testAuthor',
+    creator: 'Authorized testAuthor',
     url: 'testurl.fi',
   })
 
   const secondAudio = new Audio({
     name: 'Testing in audio',
-    author: 'The test podcast',
+    creator: 'The test podcast',
     url: 'someothertesturl.fi',
   })
 
@@ -32,10 +32,10 @@ describe('audios', () => {
       .expect('Content-Type', /application\/json/)
 
     expect(result.body[0].name).toBe('Song for testing')
-    expect(result.body[0].author).toBe('Authorized testAuthor')
+    expect(result.body[0].creator).toBe('Authorized testAuthor')
     expect(result.body[0].url).toBe('testurl.fi')
     expect(result.body[1].name).toBe('Testing in audio')
-    expect(result.body[1].author).toBe('The test podcast')
+    expect(result.body[1].creator).toBe('The test podcast')
     expect(result.body[1].url).toBe('someothertesturl.fi')
   })
 })
