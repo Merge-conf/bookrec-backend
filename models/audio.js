@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
 
 const audioSchema = new mongoose.Schema({
-  name: String,
-  author: String,
-  url: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  creator: String,
+  url: {
+    type: String,
+    required: true,
+  },
 })
 
 audioSchema.set('toJSON', {
