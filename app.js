@@ -29,7 +29,7 @@ app.use(bodyParser.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/books', bookRouter)
-app.use('api/audios', audioRouter)
+app.use('/api/audios', audioRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testRouter')
