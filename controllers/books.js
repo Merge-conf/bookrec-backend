@@ -42,4 +42,13 @@ bookRouter.put('/:id', async (req, res, next) => {
   }
 })
 
+bookRouter.delete('/:id', async (req, res, next) => {
+  try {
+    await Book.findByIdAndRemove(req.params.id)
+    res.status(204).end()
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 module.exports = bookRouter

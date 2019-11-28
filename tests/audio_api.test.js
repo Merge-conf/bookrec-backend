@@ -107,6 +107,19 @@ describe('audios', () => {
     expect(audioNames[0]).toBe('Song for testing; modified edition')
   })
 
+  test('can be deleted', async () => {
+
+
+    await api
+      .delete(`/api/audios/${savedAudio.id}`)
+      .expect(204)
+
+    const audioList = await Audio.find({})
+
+    expect(audioList.length).toBe(1)
+
+  })
+
 })
 
 

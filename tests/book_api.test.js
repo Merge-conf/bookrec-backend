@@ -55,6 +55,19 @@ describe('books', () => {
     expect(bookNames[0]).toBe('50 shades of blue')
   })
 
+  test('can be deleted', async () => {
+
+
+    await api
+      .delete(`/api/books/${savedBook.id}`)
+      .expect(204)
+
+    const bookList = await Book.find({})
+
+    expect(bookList.length).toBe(1)
+
+  })
+
 })
 
 afterAll(() => {

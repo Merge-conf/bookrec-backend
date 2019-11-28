@@ -44,4 +44,13 @@ audioRouter.put('/:id', async (req, res, next) => {
   }
 })
 
+audioRouter.delete('/:id', async (req, res, next) => {
+  try {
+    await Audio.findByIdAndRemove(req.params.id)
+    res.status(204).end()
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 module.exports = audioRouter
