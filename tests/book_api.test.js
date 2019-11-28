@@ -5,6 +5,8 @@ const Book = require('../models/book')
 
 const api = supertest(app)
 
+let savedBook
+
 beforeEach(async () => {
   await Book.deleteMany({})
 
@@ -18,7 +20,7 @@ beforeEach(async () => {
     author: 'Slum Master',
   })
 
-  await firstBook.save()
+  savedBook = await firstBook.save()
   await secondBook.save()
 })
 
@@ -34,6 +36,25 @@ describe('books', () => {
     expect(result.body[1].name).toBe('51 shades of gray')
     expect(result.body[1].author).toBe('Slum Master')
   })
+
+  test('can be modified', async () => {
+
+    const book = {
+      name: '50 shades of blue',
+      author: 'Who Cares',
+    }
+    await api
+      .put(`/api/books/${savedBook.id}`)
+      .send(book)
+      .expect('Content-Type', /application\/json/)
+
+    const bookList = await Book.find({})
+
+    const bookNames = bookList.map(book => book.name)
+
+    expect(bookNames[0]).toBe('50 shades of blue')
+  })
+
 })
 
 afterAll(() => {

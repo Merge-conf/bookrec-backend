@@ -37,7 +37,7 @@ audioRouter.put('/:id', async (req, res, next) => {
   }
 
   try {
-    const updatedAudio = await Audio.findByIdAndUpdate(req.params.id, book, { new: true })
+    const updatedAudio = await Audio.findByIdAndUpdate(req.params.id, audio, { new: true })
     res.json(updatedAudio)
   } catch (exception) {
     next(exception)

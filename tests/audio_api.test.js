@@ -2,9 +2,10 @@ const supertest = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../app')
 const Audio = require('../models/audio')
-const audioRouter = require('../controllers/audios')
 
 const api = supertest(app)
+
+let savedAudio
 
 beforeEach(async () => {
   await Audio.deleteMany({})
@@ -21,7 +22,7 @@ beforeEach(async () => {
     url: 'someothertesturl.fi',
   })
 
-  await firstAudio.save()
+  savedAudio = await firstAudio.save()
   await secondAudio.save()
 })
 
@@ -74,20 +75,41 @@ describe('audios', () => {
 
   })
 
-})
+  test('cannot be added without url', async () => {
+    const testAudio = new Audio({
+      name: 'Testaudio',
+      creator: 'Testcreator',
+    })
 
-test('cannot be added without url', async () => {
-  const testAudio = new Audio({
-    name: 'Testaudio',
-    creator: 'Testcreator',
+    await api
+      .post('/api/audios')
+      .send(testAudio)
+      .expect(400)
+
   })
 
-  await api
-    .post('/api/audios')
-    .send(testAudio)
-    .expect(400)
+  test('can be modified', async () => {
+
+    const audio = {
+      name: 'Song for testing; modified edition',
+      creator: 'Authorized testAuthor',
+      url: 'testurl.fi',
+    }
+    await api
+      .put(`/api/audios/${savedAudio.id}`)
+      .send(audio)
+      .expect('Content-Type', /application\/json/)
+
+    const audioList = await Audio.find({})
+
+    const audioNames = audioList.map(audio => audio.name)
+
+    expect(audioNames[0]).toBe('Song for testing; modified edition')
+  })
 
 })
+
+
 
 
 afterAll(() => {
