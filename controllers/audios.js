@@ -15,7 +15,7 @@ audioRouter.post('/', async (req, res, next) => {
 
   const audio = new Audio({
     name: body.name,
-    author: body.author,
+    creator: body.creator,
     url: body.url,
   })
 

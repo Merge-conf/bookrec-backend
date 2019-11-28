@@ -2,6 +2,7 @@ const supertest = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../app')
 const Audio = require('../models/audio')
+const audioRouter = require('../controllers/audios')
 
 const api = supertest(app)
 
@@ -38,7 +39,56 @@ describe('audios', () => {
     expect(result.body[1].creator).toBe('The test podcast')
     expect(result.body[1].url).toBe('someothertesturl.fi')
   })
+
+  test('can be added', async () => {
+    const testAudio = new Audio({
+      name: 'Testaudio',
+      creator: 'Testcreator',
+      url: 'testurl',
+    })
+
+    await api
+      .post('/api/audios')
+      .send(testAudio)
+      .expect(200)
+      .expect('Content-type', /application\/json/)
+
+    const audioList = await Audio.find({})
+
+    const audioNames = audioList.map(audio => audio.name)
+
+    expect(audioNames[2]).toBe('Testaudio')
+
+  })
+
+  test('cannot be added without name', async () => {
+    const testAudio = new Audio({
+      creator: 'Testcreator',
+      url: 'testurl',
+    })
+
+    await api
+      .post('/api/audios')
+      .send(testAudio)
+      .expect(400)
+
+  })
+
 })
+
+test('cannot be added without url', async () => {
+  const testAudio = new Audio({
+    name: 'Testaudio',
+    creator: 'Testcreator',
+  })
+
+  await api
+    .post('/api/audios')
+    .send(testAudio)
+    .expect(400)
+
+})
+
 
 afterAll(() => {
   mongoose.connection.close()
