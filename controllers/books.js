@@ -26,4 +26,20 @@ bookRouter.post('/', async (req, res, next) => {
   }
 })
 
+bookRouter.put('/:id', async (req, res, next) => {
+  const { body } = req
+
+  const book = {
+    name: body.name,
+    author: body.author,
+  }
+
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, book, { new: true })
+    res.json(updatedBook)
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 module.exports = bookRouter

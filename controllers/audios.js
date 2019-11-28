@@ -27,4 +27,21 @@ audioRouter.post('/', async (req, res, next) => {
   }
 })
 
+audioRouter.put('/:id', async (req, res, next) => {
+  const { body } = req
+
+  const audio = {
+    name: body.name,
+    creator: body.creator,
+    url: body.url,
+  }
+
+  try {
+    const updatedAudio = await Audio.findByIdAndUpdate(req.params.id, book, { new: true })
+    res.json(updatedAudio)
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 module.exports = audioRouter
